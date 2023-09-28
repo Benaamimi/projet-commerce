@@ -31,5 +31,10 @@ services:
     arguments:
       $tva: 20
 
+  App\Taxes\Detector:
+    arguments:
+      $plafond: 100
+
   Cocur\Slugify\Slugify: ~
+
     

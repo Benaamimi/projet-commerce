@@ -1,0 +1,75 @@
+//---------- dans twig:
+   <h2>Nos formateurs</h2>
+    
+{# differente façon d'utiliser l'inclusion #}
+
+{# exemple 1 #}
+    {% set formateur = formateur1 %}
+   {% include "_formateur.html.twig" %}
+
+{# exemple 2 #}
+   {% include "_formateur.html.twig" with {"formateur": formateur2} %}
+   
+ //--------  dans controller:
+
+    public function hello($name, Environment $twig)//on peut aussi le parametrer ici !
+    //cette fonction traite une requette http et renvoie une reponse http
+    {
+       
+        $html = $twig->render('hello.html.twig', [
+            'formateur1' => ['prenom' => 'kevin', 'nom' => 'Durant'],
+            'formateur2' => ['prenom' => 'James', 'nom' => 'Lebron'] 
+        ]);
+        return new Response("$html");
+    }
+
+//------------ le repository
+
+  public function homepage(ProductRepository $productRepository)
+    {
+        // count([]) le nombre d'enregistrement
+        // find(id) retourne le produit
+        // findBy([],[]) retourne par tous avec les critère
+        // findOneBy([],[]) retourne le premier qui trouve avec les critères demander
+        // findAll() retourn tous !
+        $products = $productRepository->findOneBy([], ['price' => 'DESC']);
+        dd($products);
+        
+
+        return $this->render("home.html.twig");
+    }
+
+//----------- Ajouter et set un odjet dans controller 
+
+ public function homepage(EntityManagerInterface $em, ProductRepository $repo)
+    {
+
+    //ajouter
+        $product = new Product;  //creer le produit
+
+        $product
+            ->setName('Table en métal') //le personaliser
+            ->setPrice(3000)
+            ->setSlug('table-en-metal');
+            
+        $em->persist($product); //le persist prepare a l'envoyer dans la requete sql dans la bdd on le met pour les enregistrement qu'on vient de créer. on le met pas pour les modification 
+        $em->flush(); //inserer tout les persist si on en n'a plusieur dans la base de données 
+
+    //modifier
+        $repo = $em->getRepository(Product::class); //desine le repository de la classe qu'on cible
+
+        $produit = $repo->find(3);             //trouver le produit
+        $produit->setName('Bureau en bois');   //modifier le produit
+        $produit->setPrice(4500);
+        $produit->setSlug('bureau-en-bois');
+
+        $em->flush();            //met a jour dans la base de données
+
+
+
+    //supprimer
+    
+
+
+        return $this->render("home.html.twig");
+    }

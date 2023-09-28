@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Accueil
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center mt-4">Nos produits phares</h1>
+	<div class="d-flex justify-content-around mt-4">
+		{% for p in products %}
+			<div class="col-3 mt-4" height="400">
+				<div class="card">
+					<img src="{{ p.mainPicture }}" class="img-fluid" alt="image du produit">
+					<div class="card-body">
+						<h4 class="card-title">{{p.name}} ({{ p.price / 100}} &euro;)</h4>
+						<span class="badge rounded-pill text-bg-primary">{{p.category.name}}</span>
+						<p class="card-text">{{p.shortDescription}}</p>
+						<a href="#" class="btn btn-primary btn-sm">Détails</a>
+						<a href="#" class="btn btn-success btn-sm">Ajouter</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<hr class="my-5">
+	<h2>Un service irreprochable</h2>
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa eius officia in ut praesentium magni.</p>
+
+	<div class="row">
+		{% include "shared/_assurance.html.twig" with {
+            'color':'primary',
+            'icone':'fas fa-truck',
+            'text': "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique modi, eum reiciendis aliquid deleniti sint."
+        } %}
+		{% include "shared/_assurance.html.twig" with {
+            'color':'success',
+            'icone':'fas fa-check',
+            'text': "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique modi, eum reiciendis aliquid deleniti sint."
+        } %}
+		{% include "shared/_assurance.html.twig" with {
+            'color':'warning',
+            'icone':'fas fa-lock',
+            'text': "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique modi, eum reiciendis aliquid deleniti sint."
+        } %}
+	</div>
+
+
+{% endblock %}
