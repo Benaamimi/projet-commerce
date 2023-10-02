@@ -23,14 +23,15 @@
         return new Response("$html");
     }
 
-//------------ le repository
+//------------ trouver, selectionner avec le Reporsitory
 
   public function homepage(ProductRepository $productRepository)
     {
+    //selctionner
         // count([]) le nombre d'enregistrement
         // find(id) retourne le produit
         // findBy([],[]) retourne par tous avec les critère
-        // findOneBy([],[]) retourne le premier qui trouve avec les critères demander
+        // findOneBy([]) retourne le premier qui trouve avec les critères demander
         // findAll() retourn tous !
         $products = $productRepository->findOneBy([], ['price' => 'DESC']);
         dd($products);
@@ -39,9 +40,9 @@
         return $this->render("home.html.twig");
     }
 
-//----------- Ajouter et set un odjet dans controller 
+//----------- Ajouter, modifier et supprimer un odjet dans controller avec l'EntityManagerInterface 
 
- public function homepage(EntityManagerInterface $em, ProductRepository $repo)
+public function homepage(EntityManagerInterface $em)
     {
 
     //ajouter
@@ -54,6 +55,7 @@
             
         $em->persist($product); //le persist prepare a l'envoyer dans la requete sql dans la bdd on le met pour les enregistrement qu'on vient de créer. on le met pas pour les modification 
         $em->flush(); //inserer tout les persist si on en n'a plusieur dans la base de données 
+    
 
     //modifier
         $repo = $em->getRepository(Product::class); //desine le repository de la classe qu'on cible
@@ -68,8 +70,12 @@
 
 
     //supprimer
-    
 
+        $repo = $em->getRepository(Product::class); //desine le repository de la classe qu'on cible
+        $produit = $repo->find(3);             //trouver le produit
+    
+        $em->remove(produit);       //supprimer le produit
+        $em->flush();       //met a jour dans la base de données
 
         return $this->render("home.html.twig");
     }
