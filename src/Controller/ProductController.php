@@ -88,13 +88,14 @@ class ProductController extends AbstractController
     {
         $product = $productRepository->find($id);
 
-        $form = $this->createForm(ProductType::class); // $product dans la fonction et fait la même chose que $form->setData($product);
+        $form = $this->createForm(ProductType::class, $product); // $product dans la fonction et fait la même chose que $form->setData($product);
 
         // $form->setData($product); //les information du produit cibler dans la route par sont id /admin/product/{id}/edit grace à la methode find($id)
         
         $form->handleRequest($request); //inspercte la requette si le formulaire a été soumis il prend les infos mis dans le formulaire
 
         if($form->isSubmitted()){
+            dd($form->getData());
             // $product = $form->getData(); //si les le formulaire a été soumis il prend les modifications du formlulaire
             $product->setSlug(strtolower($slugger->slug($product->getName()))); //mettre le slug du nom du produit grace a $slugger
            
