@@ -4,7 +4,10 @@ twig:
         - bootstrap_5_layout.html.twig
         # - autre_theme.html.twig
         # - dernier_theme.html.twig
+    globals:
+        categoryRepository: "@App\\Repository\\CategoryRepository"
 
 when@test:
     twig:
         strict_variables: true
+

@@ -14,6 +14,22 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CategoryController extends AbstractController
 {
+    // protected $categoryRepository;
+
+    // public function __construct(CategoryRepository $categoryRepository)
+    // {
+    //     $this->categoryRepository = $categoryRepository;
+    // }
+
+    // public function renderMenuList()
+    // {
+    //     $categories = $this->categoryRepository->findAll();
+
+    //     return $this->render('category/_menu.html.twig', [
+    //         'categories' => $categories
+    //     ]);
+    // }
+
     #[Route('/admin/category/create', name: 'category_create')]
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
@@ -25,7 +41,7 @@ class CategoryController extends AbstractController
 
 
         //sumission du formulaire
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $category->setSlug(strtolower($slugger->slug($category->getName()))); //j'ai fais la proprieté slug manuellement
 
             $em->persist($category); //sauvegarder ma category créer
@@ -50,7 +66,7 @@ class CategoryController extends AbstractController
 
         $form->handleRequest($request); //analyse la requête http
 
-        if($form->isSubmitted()) //submission du formulaire
+        if($form->isSubmitted() && $form->isValid()) //submission du formulaire
         {
             $category->setSlug(strtolower($slugger->slug($category->getName())));
 
