@@ -1,0 +1,13 @@
+# App\Entity\Product:
+#   properties:
+#     name:
+#       - NotBlank: { message: "Le nom du produit est obligatoire" }
+#       - Length:
+#           {
+#             min: 3,
+#             max: 5,
+#             minMessage: "Le nom du produit doit faire plus de {{ limit }} caractères",
+#             maxMessage: "Le nom du produit doit faire moin de {{ limit }} caractères",
+#           }
+#     price:
+#       - NotBlank: { message: "Le prix est obligatoire" }

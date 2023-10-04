@@ -9,9 +9,10 @@
 
     <h1>Editer de produit {{ product.name }}</h1>
 
+	{# * { {{ form_start(formView, 'attr': {'novalidate': 'novalidate'} }) }} enpeche le navigateur de valider #}
     {{ form_start(formView) }}
 
-	{{ form_errors(formView) }}
+	{# {{ form_errors(formView) }} #}
 	<div class="row">
 		<div class="col">
 			{{ form_row(formView.name) }}
