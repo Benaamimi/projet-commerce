@@ -6,12 +6,17 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+// #[IsGranted("ROLE_ADMIN", message:"Vous n'avez le droit")] //? interdit l'action a toutes les methode sauf a l'admin
 class CategoryController extends AbstractController
 {
     // protected $categoryRepository;
@@ -62,6 +67,11 @@ class CategoryController extends AbstractController
     public function edit($id, CategoryRepository $categoryRepository, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
         $category = $categoryRepository->find($id); //category recupéré par son id 
+
+        if(!$category){
+            throw new NotFoundHttpException("Cette catégorie n'existe pas");
+        }
+
         $form = $this->createForm(CategoryType::class, $category); // la category ciblé par son id
 
         $form->handleRequest($request); //analyse la requête http
