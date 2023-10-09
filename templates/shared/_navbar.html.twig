@@ -8,20 +8,34 @@
 			<ul class="navbar-nav me-auto">
 				{% for category in categoryRepository.findAll() %}
 					<li class="nav-item">
-						<a class="nav-link" href="#">{{ category.name }}</a>
+						<a class="nav-link" href="{{path('product_category', {'slug' : category.slug})}}">{{ category.name }}</a>
 					</li>
 				{% endfor %}
 			</ul>
 
 			<ul class="navbar-nav">
-			{% if app.user %}
-				<li class="nav-item"><a href="{{ path('security_logout') }}" class="btn btn-danger">Logout</a></li>
-			{% else %}
-				<li class="nav-item"><a href="#" class="nav-link">Inscription</a></li>
-				<li class="nav-item"><a href="{{ path('security_login') }}" class="btn btn-success">Login</a></li>
-			{% endif %}
+				<li class="nav-item">
+					<a href="{{ path('cart_show') }}" class="nav-link">
+						<i class="fas fa-shopping-cart me-2"></i>
+						Panier ({{cartService.total}}) 
+						{#? appeler depuis globals dans twig.yaml #}
+						{#? fonction getTotal vien de la class cartService #}
+					</a>
+				</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a href="{{ path('security_logout') }}" class="btn btn-danger">Logout</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a href="#" class="nav-link">Inscription</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('security_login')}}" class="btn btn-success">Login</a>
+					</li>
+				{% endif %}
 			</ul>
-		
+
 		</div>
 	</div>
 </nav>

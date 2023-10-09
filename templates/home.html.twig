@@ -6,45 +6,33 @@
 
 {% block body %}
 	<h1 class="text-center mt-4">Nos produits phares</h1>
-	<div class="d-flex justify-content-around mt-4">
-		{% for p in products %}
-			<div class="col-3 mt-4" height="400">
-				<div class="card">
-					<img src="{{ p.mainPicture }}" class="img-fluid" alt="image du produit">
-					<div class="card-body">
-						<h4 class="card-title">{{p.name}}
-							({{ p.price / 100}}
-							&euro;)</h4>
-						<span class="badge rounded-pill text-bg-primary">{{p.category.name}}</span>
-						<p class="card-text">{{p.shortDescription}}</p>
-						<a class="btn btn-primary btn-sm" href="{{path('product_show', {'category_slug': p.category.slug, 'slug': p.slug }) }}">Détails</a>
-						<a href="#" class="btn btn-success btn-sm">Ajouter</a>
-					</div>
-				</div>
+	<div class="row">
+		{% for product in products %}
+			<div class="col mt-4">
+				{% include "product/_product_cart.html.twig" with {'p' : product} %} 
+				 {# ? with {'p' : product} est un tableau associatif #}
+				 {# ? Avec with {'p' : product} on replace la variable p qui est dans le fishier qu'on a include par product qui est dans l'exterieur  #}
 			</div>
 		{% endfor %}
 	</div>
-	<hr class="my-5">
-	<h2>Un service irreprochable</h2>
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa eius officia in ut praesentium magni.</p>
+<hr class="my-5">
+<h2>Un service irreprochable</h2>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa eius officia in ut praesentium magni.</p>
 
-	<div class="row">
-		{% include "shared/_assurance.html.twig" with {
+<div class="row">
+	{% include "shared/_assurance.html.twig" with {
             'color':'primary',
             'icone':'fas fa-truck',
             'text': "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique modi, eum reiciendis aliquid deleniti sint."
         } %}
-		{% include "shared/_assurance.html.twig" with {
+	{% include "shared/_assurance.html.twig" with {
             'color':'success',
             'icone':'fas fa-check',
             'text': "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique modi, eum reiciendis aliquid deleniti sint."
         } %}
-		{% include "shared/_assurance.html.twig" with {
+	{% include "shared/_assurance.html.twig" with {
             'color':'warning',
             'icone':'fas fa-lock',
             'text': "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique modi, eum reiciendis aliquid deleniti sint."
         } %}
-	</div>
-
-
-{% endblock %}
+</div>{% endblock %}

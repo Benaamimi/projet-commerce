@@ -4,8 +4,10 @@ twig:
         - bootstrap_5_layout.html.twig
         # - autre_theme.html.twig
         # - dernier_theme.html.twig
-    globals:
+    globals:  
+    #? NB : globals fait que toute variable dans globals on peut y accéder dans tous nos fishier twig  
         categoryRepository: "@App\\Repository\\CategoryRepository"
+        cartService: "@App\\Cart\\CartService" 
 
 when@test:
     twig:
