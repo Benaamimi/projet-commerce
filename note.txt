@@ -79,3 +79,17 @@ public function homepage(EntityManagerInterface $em)
 
         return $this->render("home.html.twig");
     }
+
+    LA SESSION :
+
+    - on obtient la session via la request (HttpFoundation)
+
+    - on peut se faire livre la SessioInterface par le Container de sevice dans :
+        - une classe au niveau du constructeur 
+        - une fonction au niveau du controller
+
+    - on session :st les données sont organiser en different bag :
+        - bag attributes : ou sont ranger les données
+        - bag flashes : stocker des messages de ntification au utilisateur
+
+    - refactoring et poo preferable de créer un cartService pour la getion du panier par exemple 

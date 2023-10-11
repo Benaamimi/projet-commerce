@@ -29,6 +29,11 @@ class CartService
         $this->session->set('cart', $cart); //? mettre a jour la session 
     }
 
+    public function empty()
+    {
+        $this->saveCart([]); //? vider le panier dans la session, aprés la commande
+    }
+
 
     public function add(int $id, )
     {
@@ -95,6 +100,10 @@ class CartService
         return $total;
     }
     
+    /** 
+     * 
+     * @return CartItem[]
+     */
     public function getDetailedcartItems(): array
     {
         $detailedCart = [];
