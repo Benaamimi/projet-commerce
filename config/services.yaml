@@ -37,4 +37,11 @@ services:
 
   Cocur\Slugify\Slugify: ~
 
+  App\Stripe\StripeService:
+    arguments:
+      $secretKey: '%env(STRIPE_SECRET_KEY)%' # stocker dans env.json (variable d'environment)
+      $publicKey: '%env(STRIPE_PUBLIC_KEY)%' # stocker dans env.json (variable d'environment)
+
+
+
     
