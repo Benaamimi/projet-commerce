@@ -39,9 +39,27 @@ services:
 
   App\Stripe\StripeService:
     arguments:
-      $secretKey: '%env(STRIPE_SECRET_KEY)%' # stocker dans env.json (variable d'environment)
-      $publicKey: '%env(STRIPE_PUBLIC_KEY)%' # stocker dans env.json (variable d'environment)
+      $secretKey: "%env(STRIPE_SECRET_KEY)%" # stocker dans env.json (variable d'environment)
+      $publicKey: "%env(STRIPE_PUBLIC_KEY)%" # stocker dans env.json (variable d'environment)
 
+#LES EVENEMENT:
 
-
-    
+  # App\EventDispatcher\PrenomListener:
+  #   tags:
+  #     [
+  #       {
+  #         name: kernel.event_listener,
+  #         event: kernel.request,
+  #         method: addPrenomToAttributes
+  #       },
+  #       {
+  #         name: kernel.event_listener,
+  #         event: kernel.controller,
+  #         method: test1
+  #       },
+  #       {
+  #         name: kernel.event_listener,
+  #         event: kernel.response,
+  #         method: test2
+  #       }
+  #     ]
