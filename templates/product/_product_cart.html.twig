@@ -2,8 +2,7 @@
 	<img src="{{ p.mainPicture }}" class="img-fluid" alt="image du produit">
 	<div class="card-body">
 		<h4 class="card-title">{{p.name}}
-			({{ p.price / 100}}
-			&euro;)</h4>
+			({{ p.price | amount }})</h4>
 		<span class="badge rounded-pill text-bg-primary">{{p.category.name}}</span>
 		<p class="card-text">{{p.shortDescription|slice(1, 50)}}</p>
 		<a href="{{path('product_show', {'category_slug': p.category.slug, 'slug': p.slug})}}" class="btn btn-primary btn-sm">Détails</a>
